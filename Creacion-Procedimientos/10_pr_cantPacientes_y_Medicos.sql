@@ -4,13 +4,15 @@ Retornar cantidad de pacientes que se realizaron uno o más estudios y cantidad d
 */
 --
 -- Ver cómo devolver en variables
+
 Create PROCEDURE pr_cantPacientes_y_Medicos
 @mes int,
-@año int 
+@año int,
+OUTPUT @cantMedicos int,
+OUTPUT @cantPacientes int
 
 AS
-  declare @cantMedicos int, @cantPacientes int
-	SELECT COUNT(DISTINCT Matricula) CantMedicos, COUNT(DISTINCT DNI) CantPacientes
+	SELECT @CantMedicos = COUNT(DISTINCT Matricula) , @CantPacientes = COUNT(DISTINCT DNI) 
 	FROM  Registros r
 	WHERE	((datepart(mm,r.Fecha)=@mes) AND 
 		  datepart(yy, r.Fecha)=@año)
